@@ -5,13 +5,18 @@ Werkzeug Documentation:  http://werkzeug.pocoo.org/documentation/
 This file creates your application.
 """
 
-from app import app
 from flask import render_template, request, redirect, url_for, flash
+import datetime
+from app import app
 
+def format_date_joined(date):
+    date_joined = datetime.date(2016, 2, 7)
+    return date_joined.strftime("%B, %Y")
 
 ###
 # Routing for your application.
 ###
+
 
 @app.route('/')
 def home():
@@ -22,7 +27,21 @@ def home():
 @app.route('/about/')
 def about():
     """Render the website's about page."""
-    return render_template('about.html', name="Mary Jane")
+    return render_template('about.html', name="Kyle Burke")
+
+
+@app.route('/profile/')
+def profile():
+    hold = {}
+    hold['name'] = "Marlon Williams"
+    hold['tag'] = "@marlonWill14"
+    hold['addr'] = "Spanish Town, Jamaica"
+    hold['joined'] = format_date_joined(2017,1,5)
+    hold['num_posts'] = 50
+    hold['num_following'] = 1000
+    hold['num_followers'] = 750
+    hold['bio'] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus lacinia, sapien commodo malesuada consectetur, neque sem cursus dolor, et eleifend nunc mauris at dui. Quisque euismod sollicitudin vestibulum. Integer congue felis at urna gravida, eu euismod tellus consectetur. In hac habitasse platea dictumst. Suspendisse eu eleifend metus."
+    return render_template('profile.html', params = hold)
 
 
 ###
